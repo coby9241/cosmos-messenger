@@ -17,7 +17,7 @@ func CmdShowReceivedMessages() *cobra.Command {
 		Short: "Query show-received-messages",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			reqUser := args[0]
+			reqWalletAddress := args[0]
 
 			clientCtx, err := client.GetClientQueryContext(cmd)
 			if err != nil {
@@ -27,8 +27,7 @@ func CmdShowReceivedMessages() *cobra.Command {
 			queryClient := types.NewQueryClient(clientCtx)
 
 			params := &types.QueryShowReceivedMessagesRequest{
-
-				User: reqUser,
+				WalletAddress: reqWalletAddress,
 			}
 
 			pageReq, err := client.ReadPageRequest(cmd.Flags())

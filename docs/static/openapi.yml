@@ -34012,7 +34012,7 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
-  /cosmos-messenger/cosmosmessenger/show_received_messages/{user}:
+  /cosmos-messenger/cosmosmessenger/show_received_messages/{walletAddress}:
     get:
       summary: Queries a list of ShowReceivedMessages items.
       operationId: CosmosmessengerCosmosmessengerShowReceivedMessages
@@ -34027,9 +34027,9 @@ paths:
                 items:
                   type: object
                   properties:
-                    sender:
+                    senderAddress:
                       type: string
-                    receiver:
+                    receiverAddress:
                       type: string
                     body:
                       type: string
@@ -34082,7 +34082,7 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: user
+        - name: walletAddress
           in: path
           required: true
           type: string
@@ -34144,7 +34144,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /cosmos-messenger/cosmosmessenger/show_sent_messages/{user}:
+  /cosmos-messenger/cosmosmessenger/show_sent_messages/{walletAddress}:
     get:
       summary: Queries a list of ShowSentMessages items.
       operationId: CosmosmessengerCosmosmessengerShowSentMessages
@@ -34159,9 +34159,9 @@ paths:
                 items:
                   type: object
                   properties:
-                    sender:
+                    senderAddress:
                       type: string
-                    receiver:
+                    receiverAddress:
                       type: string
                     body:
                       type: string
@@ -34214,7 +34214,7 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: user
+        - name: walletAddress
           in: path
           required: true
           type: string
@@ -70601,9 +70601,9 @@ definitions:
   cosmosmessenger.cosmosmessenger.Message:
     type: object
     properties:
-      sender:
+      senderAddress:
         type: string
-      receiver:
+      receiverAddress:
         type: string
       body:
         type: string
@@ -70632,9 +70632,9 @@ definitions:
         items:
           type: object
           properties:
-            sender:
+            senderAddress:
               type: string
-            receiver:
+            receiverAddress:
               type: string
             body:
               type: string
@@ -70674,9 +70674,9 @@ definitions:
         items:
           type: object
           properties:
-            sender:
+            senderAddress:
               type: string
-            receiver:
+            receiverAddress:
               type: string
             body:
               type: string

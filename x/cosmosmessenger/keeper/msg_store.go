@@ -11,8 +11,8 @@ import (
 func (k Keeper) storeMessage(ctx sdk.Context, msg types.Message) {
 	storedMsg := k.cdc.MustMarshal(&msg)
 	fmt.Println(msg)
-	k.getSenderStore(ctx, msg.Sender).Set([]byte(msg.GetId()), storedMsg)
-	k.getReceiverStore(ctx, msg.Receiver).Set([]byte(msg.GetId()), storedMsg)
+	k.getSenderStore(ctx, msg.SenderAddress).Set([]byte(msg.GetId()), storedMsg)
+	k.getReceiverStore(ctx, msg.ReceiverAddress).Set([]byte(msg.GetId()), storedMsg)
 	return
 }
 

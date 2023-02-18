@@ -11,9 +11,9 @@ var _ sdk.Msg = &MsgCreateMessage{}
 
 func NewMsgCreateMessage(creator string, receiver string, body string) *MsgCreateMessage {
 	return &MsgCreateMessage{
-		Creator:  creator,
-		Receiver: receiver,
-		Body:     body,
+		Creator:               creator,
+		ReceiverWalletAddress: receiver,
+		Body:                  body,
 	}
 }
 
