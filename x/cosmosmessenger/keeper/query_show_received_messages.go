@@ -15,9 +15,13 @@ func (k Keeper) ShowReceivedMessages(goCtx context.Context, req *types.QueryShow
 	}
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
+	messages, paginatedRes, err := k.getReceiverMessages(ctx, req.GetPagination(), req.User)
+	if err != nil {
+		return nil, status.Error(codes.Internal, err.Error())
+	}
 
-	// TODO: Process the query
-	_ = ctx
-
-	return &types.QueryShowReceivedMessagesResponse{}, nil
+	return &types.QueryShowReceivedMessagesResponse{
+		Message:    messages,
+		Pagination: paginatedRes,
+	}, nil
 }

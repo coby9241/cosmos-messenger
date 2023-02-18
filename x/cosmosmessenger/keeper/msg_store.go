@@ -23,14 +23,21 @@ func (k Keeper) getReceiverStore(ctx sdk.Context, receiver string) prefix.Store 
 }
 
 func (k Keeper) getSenderMessages(ctx sdk.Context, pagination *query.PageRequest, user string) ([]types.Message, *query.PageResponse, error) {
-	var msgs []types.Message
+	return k.getMessages(pagination, k.getSenderStore(ctx, user))
+}
 
-	paginatedRes, err := query.Paginate(k.getSenderStore(ctx, user), pagination, func(key []byte, value []byte) error {
-		var msg types.Message
-		if err := k.cdc.Unmarshal(value, &msg); err != nil {
+func (k Keeper) getReceiverMessages(ctx sdk.Context, pagination *query.PageRequest, user string) ([]types.Message, *query.PageResponse, error) {
+	return k.getMessages(pagination, k.getReceiverStore(ctx, user))
+}
+
+func (k Keeper) getMessages(pagination *query.PageRequest, store prefix.Store) ([]types.Message, *query.PageResponse, error) {
+	var messages []types.Message
+	paginatedRes, err := query.Paginate(store, pagination, func(key []byte, value []byte) error {
+		var message types.Message
+		if err := k.cdc.Unmarshal(value, &message); err != nil {
 			return err
 		}
-		msgs = append(msgs, msg)
+		messages = append(messages, message)
 		return nil
 	})
 
@@ -38,5 +45,5 @@ func (k Keeper) getSenderMessages(ctx sdk.Context, pagination *query.PageRequest
 		return nil, nil, err
 	}
 
-	return msgs, paginatedRes, nil
+	return messages, paginatedRes, nil
 }
