@@ -6,16 +6,11 @@ import (
 	"cosmos-messenger/x/cosmosmessenger/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/segmentio/ksuid"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 func (k msgServer) CreateMessage(goCtx context.Context, msg *types.MsgCreateMessage) (*types.MsgCreateMessageResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	if msg.Creator == msg.ReceiverWalletAddress {
-		return nil, status.Error(codes.InvalidArgument, "cannot send messages to own wallet address")
-	}
-
+	// we allow sending to own wallet address fyi, just like slack allows it for instance
 	chatMsg := types.Message{
 		Body:            msg.Body,
 		Id:              ksuid.New().String(),
