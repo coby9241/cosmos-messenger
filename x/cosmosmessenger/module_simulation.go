@@ -24,7 +24,11 @@ var (
 )
 
 const (
-// this line is used by starport scaffolding # simapp/module/const
+	opWeightMsgCreateMessage = "op_weight_msg_create_message"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgCreateMessage int = 100
+
+	// this line is used by starport scaffolding # simapp/module/const
 )
 
 // GenerateGenesisState creates a randomized GenState of the module
@@ -57,6 +61,17 @@ func (am AppModule) RegisterStoreDecoder(_ sdk.StoreDecoderRegistry) {}
 // WeightedOperations returns the all the gov module operations with their respective weights.
 func (am AppModule) WeightedOperations(simState module.SimulationState) []simtypes.WeightedOperation {
 	operations := make([]simtypes.WeightedOperation, 0)
+
+	var weightMsgCreateMessage int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgCreateMessage, &weightMsgCreateMessage, nil,
+		func(_ *rand.Rand) {
+			weightMsgCreateMessage = defaultWeightMsgCreateMessage
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgCreateMessage,
+		cosmosmessengersimulation.SimulateMsgCreateMessage(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
 
 	// this line is used by starport scaffolding # simapp/module/operation
 
