@@ -52,7 +52,7 @@ func local_request_Query_Params_0(ctx context.Context, marshaler runtime.Marshal
 }
 
 var (
-	filter_Query_ShowSentMessages_0 = &utilities.DoubleArray{Encoding: map[string]int{"user": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
+	filter_Query_ShowSentMessages_0 = &utilities.DoubleArray{Encoding: map[string]int{"walletAddress": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
 )
 
 func request_Query_ShowSentMessages_0(ctx context.Context, marshaler runtime.Marshaler, client QueryClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -66,15 +66,15 @@ func request_Query_ShowSentMessages_0(ctx context.Context, marshaler runtime.Mar
 		_   = err
 	)
 
-	val, ok = pathParams["user"]
+	val, ok = pathParams["walletAddress"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "walletAddress")
 	}
 
-	protoReq.User, err = runtime.String(val)
+	protoReq.WalletAddress, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "walletAddress", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -100,15 +100,15 @@ func local_request_Query_ShowSentMessages_0(ctx context.Context, marshaler runti
 		_   = err
 	)
 
-	val, ok = pathParams["user"]
+	val, ok = pathParams["walletAddress"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "walletAddress")
 	}
 
-	protoReq.User, err = runtime.String(val)
+	protoReq.WalletAddress, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "walletAddress", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -124,7 +124,7 @@ func local_request_Query_ShowSentMessages_0(ctx context.Context, marshaler runti
 }
 
 var (
-	filter_Query_ShowReceivedMessages_0 = &utilities.DoubleArray{Encoding: map[string]int{"user": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
+	filter_Query_ShowReceivedMessages_0 = &utilities.DoubleArray{Encoding: map[string]int{"walletAddress": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
 )
 
 func request_Query_ShowReceivedMessages_0(ctx context.Context, marshaler runtime.Marshaler, client QueryClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -138,15 +138,15 @@ func request_Query_ShowReceivedMessages_0(ctx context.Context, marshaler runtime
 		_   = err
 	)
 
-	val, ok = pathParams["user"]
+	val, ok = pathParams["walletAddress"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "walletAddress")
 	}
 
-	protoReq.User, err = runtime.String(val)
+	protoReq.WalletAddress, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "walletAddress", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -172,15 +172,15 @@ func local_request_Query_ShowReceivedMessages_0(ctx context.Context, marshaler r
 		_   = err
 	)
 
-	val, ok = pathParams["user"]
+	val, ok = pathParams["walletAddress"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "user")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "walletAddress")
 	}
 
-	protoReq.User, err = runtime.String(val)
+	protoReq.WalletAddress, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "user", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "walletAddress", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -377,9 +377,9 @@ func RegisterQueryHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 var (
 	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"cosmos-messenger", "cosmosmessenger", "params"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_ShowSentMessages_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"cosmos-messenger", "cosmosmessenger", "show_sent_messages", "user"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_ShowSentMessages_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"cosmos-messenger", "cosmosmessenger", "show_sent_messages", "walletAddress"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_ShowReceivedMessages_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"cosmos-messenger", "cosmosmessenger", "show_received_messages", "user"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_ShowReceivedMessages_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"cosmos-messenger", "cosmosmessenger", "show_received_messages", "walletAddress"}, "", runtime.AssumeColonVerbOpt(true)))
 )
 
 var (

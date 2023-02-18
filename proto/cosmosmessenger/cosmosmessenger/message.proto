@@ -4,8 +4,8 @@ package cosmosmessenger.cosmosmessenger;
 option go_package = "cosmos-messenger/x/cosmosmessenger/types";
 
 message Message {
-  string sender = 1; 
-  string receiver = 2; 
+  string senderAddress = 1;
+  string receiverAddress = 2;
   string body = 3; 
   string id = 4;
 }

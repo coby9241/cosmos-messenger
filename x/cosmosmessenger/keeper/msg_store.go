@@ -16,20 +16,20 @@ func (k Keeper) storeMessage(ctx sdk.Context, msg types.Message) {
 	return
 }
 
-func (k Keeper) getSenderStore(ctx sdk.Context, sender string) prefix.Store {
-	return prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.KeySenderPrefix(sender)))
+func (k Keeper) getSenderStore(ctx sdk.Context, senderAddress string) prefix.Store {
+	return prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.KeySenderPrefix(senderAddress)))
 }
 
-func (k Keeper) getReceiverStore(ctx sdk.Context, receiver string) prefix.Store {
-	return prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.KeyReceiverPrefix(receiver)))
+func (k Keeper) getReceiverStore(ctx sdk.Context, receiverAddress string) prefix.Store {
+	return prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.KeyReceiverPrefix(receiverAddress)))
 }
 
-func (k Keeper) getSenderMessages(ctx sdk.Context, pagination *query.PageRequest, user string) ([]types.Message, *query.PageResponse, error) {
-	return k.getMessages(pagination, k.getSenderStore(ctx, user))
+func (k Keeper) getSenderMessages(ctx sdk.Context, pagination *query.PageRequest, walletAddress string) ([]types.Message, *query.PageResponse, error) {
+	return k.getMessages(pagination, k.getSenderStore(ctx, walletAddress))
 }
 
-func (k Keeper) getReceiverMessages(ctx sdk.Context, pagination *query.PageRequest, user string) ([]types.Message, *query.PageResponse, error) {
-	return k.getMessages(pagination, k.getReceiverStore(ctx, user))
+func (k Keeper) getReceiverMessages(ctx sdk.Context, pagination *query.PageRequest, walletAddress string) ([]types.Message, *query.PageResponse, error) {
+	return k.getMessages(pagination, k.getReceiverStore(ctx, walletAddress))
 }
 
 func (k Keeper) getMessages(pagination *query.PageRequest, store prefix.Store) ([]types.Message, *query.PageResponse, error) {

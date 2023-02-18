@@ -12,12 +12,12 @@ func (k msgServer) CreateMessage(goCtx context.Context, msg *types.MsgCreateMess
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	chatMsg := types.Message{
 		Sender:   msg.Creator,
-		Receiver: msg.Receiver,
+		Receiver: msg.ReceiverWalletAddress,
 		Body:     msg.Body,
 		Id:       ksuid.New().String(),
 	}
 	k.storeMessage(ctx, chatMsg)
-	ctx.Logger().Info(msg.Receiver)
+	ctx.Logger().Info(msg.ReceiverWalletAddress)
 	ctx.Logger().Info(msg.Creator)
 
 	return &types.MsgCreateMessageResponse{
