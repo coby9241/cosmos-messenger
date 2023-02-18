@@ -1,0 +1,12 @@
+syntax = "proto3";
+package cosmosmessenger.cosmosmessenger;
+
+import "gogoproto/gogo.proto";
+import "cosmosmessenger/cosmosmessenger/params.proto";
+
+option go_package = "cosmos-messenger/x/cosmosmessenger/types";
+
+// GenesisState defines the cosmosmessenger module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+}
