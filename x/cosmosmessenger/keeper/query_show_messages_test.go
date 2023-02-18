@@ -232,3 +232,39 @@ func TestKeeper_ShowSentMessages(t *testing.T) {
 		require.Equal(t, 2, len(nextPageRes.Messages))
 	})
 }
+
+func TestKeeper_ShowMixedMessages(t *testing.T) {
+	walletAddr := sample.AccAddress()
+
+	t.Run("should show a message in both ShowSentMessages and ShowReceivedMessages if sender == receiver", func(t *testing.T) {
+		msgSvr, k, ctx := setupMsgServer(t)
+		res, err := msgSvr.CreateMessage(ctx, &types.MsgCreateMessage{
+			Creator:               walletAddr,
+			ReceiverWalletAddress: walletAddr,
+			Body:                  "test sending to myself",
+		})
+		require.NoError(t, err)
+
+		// check sent msgs for wallet
+		querySender, err := k.ShowSentMessages(ctx, &types.QueryShowSentMessagesRequest{
+			WalletAddress: walletAddr,
+		})
+		require.NoError(t, err)
+		require.Equal(t, 1, len(querySender.Messages))
+		require.Equal(t, walletAddr, querySender.Messages[0].SenderAddress)
+		require.Equal(t, walletAddr, querySender.Messages[0].ReceiverAddress)
+		require.Equal(t, "test sending to myself", querySender.Messages[0].Body)
+		require.Equal(t, res.GetId(), querySender.Messages[0].GetId())
+
+		// check received msgs for wallet
+		queryReceiver, err := k.ShowSentMessages(ctx, &types.QueryShowSentMessagesRequest{
+			WalletAddress: walletAddr,
+		})
+		require.NoError(t, err)
+		require.Equal(t, 1, len(queryReceiver.Messages))
+		require.Equal(t, walletAddr, queryReceiver.Messages[0].SenderAddress)
+		require.Equal(t, walletAddr, queryReceiver.Messages[0].ReceiverAddress)
+		require.Equal(t, "test sending to myself", queryReceiver.Messages[0].Body)
+		require.Equal(t, res.GetId(), queryReceiver.Messages[0].GetId())
+	})
+}
