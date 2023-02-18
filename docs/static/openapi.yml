@@ -34022,18 +34022,19 @@ paths:
           schema:
             type: object
             properties:
-              message:
-                type: object
-                properties:
-                  sender:
-                    type: string
-                  receiver:
-                    type: string
-                  body:
-                    type: string
-                  id:
-                    type: string
-                    format: uint64
+              messages:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    sender:
+                      type: string
+                    receiver:
+                      type: string
+                    body:
+                      type: string
+                    id:
+                      type: string
               pagination:
                 type: object
                 properties:
@@ -34153,18 +34154,19 @@ paths:
           schema:
             type: object
             properties:
-              message:
-                type: object
-                properties:
-                  sender:
-                    type: string
-                  receiver:
-                    type: string
-                  body:
-                    type: string
-                  id:
-                    type: string
-                    format: uint64
+              messages:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    sender:
+                      type: string
+                    receiver:
+                      type: string
+                    body:
+                      type: string
+                    id:
+                      type: string
               pagination:
                 type: object
                 properties:
@@ -70607,13 +70609,11 @@ definitions:
         type: string
       id:
         type: string
-        format: uint64
   cosmosmessenger.cosmosmessenger.MsgCreateMessageResponse:
     type: object
     properties:
       id:
         type: string
-        format: uint64
   cosmosmessenger.cosmosmessenger.Params:
     type: object
     description: Params defines the parameters for the module.
@@ -70627,18 +70627,19 @@ definitions:
   cosmosmessenger.cosmosmessenger.QueryShowReceivedMessagesResponse:
     type: object
     properties:
-      message:
-        type: object
-        properties:
-          sender:
-            type: string
-          receiver:
-            type: string
-          body:
-            type: string
-          id:
-            type: string
-            format: uint64
+      messages:
+        type: array
+        items:
+          type: object
+          properties:
+            sender:
+              type: string
+            receiver:
+              type: string
+            body:
+              type: string
+            id:
+              type: string
       pagination:
         type: object
         properties:
@@ -70668,18 +70669,19 @@ definitions:
   cosmosmessenger.cosmosmessenger.QueryShowSentMessagesResponse:
     type: object
     properties:
-      message:
-        type: object
-        properties:
-          sender:
-            type: string
-          receiver:
-            type: string
-          body:
-            type: string
-          id:
-            type: string
-            format: uint64
+      messages:
+        type: array
+        items:
+          type: object
+          properties:
+            sender:
+              type: string
+            receiver:
+              type: string
+            body:
+              type: string
+            id:
+              type: string
       pagination:
         type: object
         properties:

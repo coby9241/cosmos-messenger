@@ -21,7 +21,7 @@ func (k Keeper) ShowReceivedMessages(goCtx context.Context, req *types.QueryShow
 	}
 
 	return &types.QueryShowReceivedMessagesResponse{
-		Message:    messages,
+		Messages:   messages,
 		Pagination: paginatedRes,
 	}, nil
 }

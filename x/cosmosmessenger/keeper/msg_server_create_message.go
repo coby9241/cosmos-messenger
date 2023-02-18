@@ -17,6 +17,8 @@ func (k msgServer) CreateMessage(goCtx context.Context, msg *types.MsgCreateMess
 		Id:       ksuid.New().String(),
 	}
 	k.storeMessage(ctx, chatMsg)
+	ctx.Logger().Info(msg.Receiver)
+	ctx.Logger().Info(msg.Creator)
 
 	return &types.MsgCreateMessageResponse{
 		Id: chatMsg.GetId(),

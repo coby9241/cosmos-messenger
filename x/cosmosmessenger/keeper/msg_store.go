@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"cosmos-messenger/x/cosmosmessenger/types"
+	"fmt"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
@@ -9,6 +10,7 @@ import (
 
 func (k Keeper) storeMessage(ctx sdk.Context, msg types.Message) {
 	storedMsg := k.cdc.MustMarshal(&msg)
+	fmt.Println(msg)
 	k.getSenderStore(ctx, msg.Sender).Set([]byte(msg.GetId()), storedMsg)
 	k.getReceiverStore(ctx, msg.Receiver).Set([]byte(msg.GetId()), storedMsg)
 	return
