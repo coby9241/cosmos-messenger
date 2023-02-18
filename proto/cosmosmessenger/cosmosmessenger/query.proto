@@ -21,13 +21,13 @@ service Query {
   
   // Queries a list of ShowSentMessages items.
   rpc ShowSentMessages (QueryShowSentMessagesRequest) returns (QueryShowSentMessagesResponse) {
-    option (google.api.http).get = "/cosmos-messenger/cosmosmessenger/show_sent_messages/{user}";
+    option (google.api.http).get = "/cosmos-messenger/cosmosmessenger/show_sent_messages/{walletAddress}";
   
   }
   
   // Queries a list of ShowReceivedMessages items.
   rpc ShowReceivedMessages (QueryShowReceivedMessagesRequest) returns (QueryShowReceivedMessagesResponse) {
-    option (google.api.http).get = "/cosmos-messenger/cosmosmessenger/show_received_messages/{user}";
+    option (google.api.http).get = "/cosmos-messenger/cosmosmessenger/show_received_messages/{walletAddress}";
   
   }
 }
@@ -42,7 +42,7 @@ message QueryParamsResponse {
 }
 
 message QueryShowSentMessagesRequest {
-  string                                user       = 1;
+  string walletAddress = 1;
   cosmos.base.query.v1beta1.PageRequest pagination = 2;
 }
 
@@ -52,7 +52,7 @@ message QueryShowSentMessagesResponse {
 }
 
 message QueryShowReceivedMessagesRequest {
-  string                                user       = 1;
+  string walletAddress = 1;
   cosmos.base.query.v1beta1.PageRequest pagination = 2;
 }
 

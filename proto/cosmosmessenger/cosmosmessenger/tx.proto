@@ -9,9 +9,9 @@ service Msg {
   rpc CreateMessage (MsgCreateMessage) returns (MsgCreateMessageResponse);
 }
 message MsgCreateMessage {
-  string creator  = 1;
-  string receiver = 2;
-  string body     = 3;
+  string creator = 1;
+  string receiverWalletAddress = 2;
+  string body = 3;
 }
 
 message MsgCreateMessageResponse {
