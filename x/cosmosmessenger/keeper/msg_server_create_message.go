@@ -23,8 +23,6 @@ func (k msgServer) CreateMessage(goCtx context.Context, msg *types.MsgCreateMess
 		ReceiverAddress: msg.ReceiverWalletAddress,
 	}
 	k.storeMessage(ctx, chatMsg)
-	ctx.Logger().Info(msg.ReceiverWalletAddress)
-	ctx.Logger().Info(msg.Creator)
 
 	return &types.MsgCreateMessageResponse{
 		Id: chatMsg.GetId(),
