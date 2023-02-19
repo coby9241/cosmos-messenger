@@ -18,6 +18,9 @@ const (
 
 	// SenderKey uniquely defines messages where one is a receiver
 	receiverKey = "/Messages/Receiver/"
+
+	// EncryptionKey uniquely defines encryption keys for message sender/receiver
+	EncryptionKey = "/Messages/EncryptionKey/"
 )
 
 func KeyPrefix(p string) []byte {

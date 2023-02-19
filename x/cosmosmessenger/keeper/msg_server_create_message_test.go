@@ -1,9 +1,12 @@
 package keeper_test
 
 import (
+	"context"
+	"crypto/rsa"
 	"regexp"
 	"testing"
 
+	"cosmos-messenger/testutil/encryption"
 	"cosmos-messenger/testutil/sample"
 	"cosmos-messenger/x/cosmosmessenger/types"
 	"github.com/stretchr/testify/require"
@@ -14,6 +17,17 @@ func IsValidKsuid(str string) bool {
 	return re.MatchString(str)
 }
 
+func registerWalletForUser(ctx context.Context, t *testing.T, msgSvr types.MsgServer, walletAddress string) (*rsa.PrivateKey, string) {
+	privateKey, pubKeyStr := getEncryptionKeys(t)
+
+	_, err := msgSvr.RegisterWalletKey(ctx, &types.MsgRegisterWalletKey{
+		Creator: walletAddress,
+		Pubkey:  pubKeyStr,
+	})
+	require.NoError(t, err)
+	return privateKey, pubKeyStr
+}
+
 func TestMsgServer_CreateMessage(t *testing.T) {
 	senderAddr := sample.AccAddress()
 	receiverAddr := sample.AccAddress()
@@ -22,6 +36,8 @@ func TestMsgServer_CreateMessage(t *testing.T) {
 		t.Parallel()
 		// arrange
 		msgSvr, _, ctx := setupMsgServer(t)
+		_, _ = registerWalletForUser(ctx, t, msgSvr, senderAddr)
+		_, _ = registerWalletForUser(ctx, t, msgSvr, receiverAddr)
 		// act
 		resp, err := msgSvr.CreateMessage(ctx, &types.MsgCreateMessage{
 			Creator:               senderAddr,
@@ -37,6 +53,8 @@ func TestMsgServer_CreateMessage(t *testing.T) {
 		t.Parallel()
 		// arrange
 		msgSvr, k, ctx := setupMsgServer(t)
+		privateKey, _ := registerWalletForUser(ctx, t, msgSvr, senderAddr)
+		_, _ = registerWalletForUser(ctx, t, msgSvr, receiverAddr)
 		// act
 		resp, err := msgSvr.CreateMessage(ctx, &types.MsgCreateMessage{
 			Creator:               senderAddr,
@@ -55,13 +73,18 @@ func TestMsgServer_CreateMessage(t *testing.T) {
 		require.Equal(t, 1, len(result.Messages))
 		require.Equal(t, senderAddr, result.Messages[0].SenderAddress)
 		require.Equal(t, receiverAddr, result.Messages[0].ReceiverAddress)
-		require.Equal(t, "this is a test message", result.Messages[0].Body)
+
+		decryptedMsg, err := encryption.DecryptMessageGivenKey(result.Messages[0].Body, privateKey)
+		require.NoError(t, err)
+		require.Equal(t, "this is a test message", string(decryptedMsg))
 	})
 
 	t.Run("should create multiple messages with no issues", func(t *testing.T) {
 		t.Parallel()
 		// arrange
 		msgSvr, _, ctx := setupMsgServer(t)
+		_, _ = registerWalletForUser(ctx, t, msgSvr, senderAddr)
+		_, _ = registerWalletForUser(ctx, t, msgSvr, receiverAddr)
 		messages := []string{
 			"test message 1",
 			"test message 2",

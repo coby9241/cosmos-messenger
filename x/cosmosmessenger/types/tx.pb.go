@@ -131,9 +131,107 @@ func (m *MsgCreateMessageResponse) GetId() string {
 	return ""
 }
 
+type MsgRegisterWalletKey struct {
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	Pubkey  string `protobuf:"bytes,2,opt,name=pubkey,proto3" json:"pubkey,omitempty"`
+}
+
+func (m *MsgRegisterWalletKey) Reset()         { *m = MsgRegisterWalletKey{} }
+func (m *MsgRegisterWalletKey) String() string { return proto.CompactTextString(m) }
+func (*MsgRegisterWalletKey) ProtoMessage()    {}
+func (*MsgRegisterWalletKey) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a335ac72c4a90a9d, []int{2}
+}
+func (m *MsgRegisterWalletKey) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgRegisterWalletKey) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgRegisterWalletKey.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgRegisterWalletKey) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgRegisterWalletKey.Merge(m, src)
+}
+func (m *MsgRegisterWalletKey) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgRegisterWalletKey) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgRegisterWalletKey.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgRegisterWalletKey proto.InternalMessageInfo
+
+func (m *MsgRegisterWalletKey) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgRegisterWalletKey) GetPubkey() string {
+	if m != nil {
+		return m.Pubkey
+	}
+	return ""
+}
+
+type MsgRegisterWalletKeyResponse struct {
+	Success bool `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+}
+
+func (m *MsgRegisterWalletKeyResponse) Reset()         { *m = MsgRegisterWalletKeyResponse{} }
+func (m *MsgRegisterWalletKeyResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgRegisterWalletKeyResponse) ProtoMessage()    {}
+func (*MsgRegisterWalletKeyResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a335ac72c4a90a9d, []int{3}
+}
+func (m *MsgRegisterWalletKeyResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgRegisterWalletKeyResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgRegisterWalletKeyResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgRegisterWalletKeyResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgRegisterWalletKeyResponse.Merge(m, src)
+}
+func (m *MsgRegisterWalletKeyResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgRegisterWalletKeyResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgRegisterWalletKeyResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgRegisterWalletKeyResponse proto.InternalMessageInfo
+
+func (m *MsgRegisterWalletKeyResponse) GetSuccess() bool {
+	if m != nil {
+		return m.Success
+	}
+	return false
+}
+
 func init() {
 	proto.RegisterType((*MsgCreateMessage)(nil), "cosmosmessenger.cosmosmessenger.MsgCreateMessage")
 	proto.RegisterType((*MsgCreateMessageResponse)(nil), "cosmosmessenger.cosmosmessenger.MsgCreateMessageResponse")
+	proto.RegisterType((*MsgRegisterWalletKey)(nil), "cosmosmessenger.cosmosmessenger.MsgRegisterWalletKey")
+	proto.RegisterType((*MsgRegisterWalletKeyResponse)(nil), "cosmosmessenger.cosmosmessenger.MsgRegisterWalletKeyResponse")
 }
 
 func init() {
@@ -141,7 +239,7 @@ func init() {
 }
 
 var fileDescriptor_a335ac72c4a90a9d = []byte{
-	// 243 bytes of a gzipped FileDescriptorProto
+	// 320 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xd2, 0x48, 0xce, 0x2f, 0xce,
 	0xcd, 0x2f, 0xce, 0x4d, 0x2d, 0x2e, 0x4e, 0xcd, 0x4b, 0x4f, 0x2d, 0xd2, 0x47, 0xe7, 0x97, 0x54,
 	0xe8, 0x15, 0x14, 0xe5, 0x97, 0xe4, 0x0b, 0xc9, 0xa3, 0xc9, 0xe8, 0xa1, 0xf1, 0x95, 0xca, 0xb8,
@@ -151,13 +249,17 @@ var fileDescriptor_a335ac72c4a90a9d = []byte{
 	0x62, 0x4e, 0x4e, 0x6a, 0x89, 0x63, 0x4a, 0x4a, 0x51, 0x6a, 0x71, 0xb1, 0x04, 0x13, 0x58, 0x1d,
 	0x76, 0x49, 0x21, 0x21, 0x2e, 0x96, 0xa4, 0xfc, 0x94, 0x4a, 0x09, 0x66, 0xb0, 0x22, 0x30, 0x5b,
 	0x49, 0x8b, 0x4b, 0x02, 0xdd, 0xde, 0xa0, 0xd4, 0xe2, 0x82, 0xfc, 0xbc, 0xe2, 0x54, 0x21, 0x3e,
-	0x2e, 0xa6, 0xcc, 0x14, 0xa8, 0xd5, 0x4c, 0x99, 0x29, 0x46, 0x2d, 0x8c, 0x5c, 0xcc, 0xbe, 0xc5,
-	0xe9, 0x42, 0xb5, 0x5c, 0xbc, 0xa8, 0x0e, 0x35, 0xd4, 0x23, 0xe0, 0x3d, 0x3d, 0x74, 0x3b, 0xa4,
-	0x2c, 0x49, 0xd6, 0x02, 0x73, 0x96, 0x93, 0xd3, 0x89, 0x47, 0x72, 0x8c, 0x17, 0x1e, 0xc9, 0x31,
-	0x3e, 0x78, 0x24, 0xc7, 0x38, 0xe1, 0xb1, 0x1c, 0xc3, 0x85, 0xc7, 0x72, 0x0c, 0x37, 0x1e, 0xcb,
-	0x31, 0x44, 0x41, 0xe3, 0x43, 0x17, 0x11, 0x01, 0x15, 0x98, 0x51, 0x52, 0x59, 0x90, 0x5a, 0x9c,
-	0xc4, 0x06, 0x8e, 0x16, 0x63, 0x40, 0x00, 0x00, 0x00, 0xff, 0xff, 0x67, 0xee, 0xfb, 0x1d, 0xc2,
-	0x01, 0x00, 0x00,
+	0x2e, 0xa6, 0xcc, 0x14, 0xa8, 0xd5, 0x4c, 0x99, 0x29, 0x4a, 0x1e, 0x5c, 0x22, 0xbe, 0xc5, 0xe9,
+	0x41, 0xa9, 0xe9, 0x99, 0xc5, 0x25, 0x30, 0xb3, 0xbd, 0x53, 0x2b, 0xf1, 0xb8, 0x53, 0x8c, 0x8b,
+	0xad, 0xa0, 0x34, 0x29, 0x3b, 0xb5, 0x12, 0xea, 0x30, 0x28, 0x4f, 0xc9, 0x82, 0x4b, 0x06, 0x9b,
+	0x49, 0x70, 0x9b, 0x25, 0xb8, 0xd8, 0x8b, 0x4b, 0x93, 0x93, 0x41, 0x3e, 0x02, 0x99, 0xc8, 0x11,
+	0x04, 0xe3, 0x1a, 0x4d, 0x60, 0xe2, 0x62, 0xf6, 0x2d, 0x4e, 0x17, 0xaa, 0xe5, 0xe2, 0x45, 0x0d,
+	0x2c, 0x43, 0x3d, 0x02, 0x41, 0xac, 0x87, 0xee, 0x4f, 0x29, 0x4b, 0x92, 0xb5, 0xc0, 0x1d, 0xd8,
+	0xc9, 0xc8, 0x25, 0x88, 0x19, 0x10, 0xa6, 0xc4, 0x18, 0x88, 0xa1, 0x4d, 0xca, 0x96, 0x2c, 0x6d,
+	0x30, 0xb7, 0x38, 0x39, 0x9d, 0x78, 0x24, 0xc7, 0x78, 0xe1, 0x91, 0x1c, 0xe3, 0x83, 0x47, 0x72,
+	0x8c, 0x13, 0x1e, 0xcb, 0x31, 0x5c, 0x78, 0x2c, 0xc7, 0x70, 0xe3, 0xb1, 0x1c, 0x43, 0x14, 0x34,
+	0x7d, 0xea, 0x22, 0x12, 0x64, 0x05, 0x66, 0x12, 0xad, 0x2c, 0x48, 0x2d, 0x4e, 0x62, 0x03, 0x27,
+	0x53, 0x63, 0x40, 0x00, 0x00, 0x00, 0xff, 0xff, 0x02, 0xf1, 0x2f, 0xc7, 0xd2, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -173,6 +275,7 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MsgClient interface {
 	CreateMessage(ctx context.Context, in *MsgCreateMessage, opts ...grpc.CallOption) (*MsgCreateMessageResponse, error)
+	RegisterWalletKey(ctx context.Context, in *MsgRegisterWalletKey, opts ...grpc.CallOption) (*MsgRegisterWalletKeyResponse, error)
 }
 
 type msgClient struct {
@@ -192,9 +295,19 @@ func (c *msgClient) CreateMessage(ctx context.Context, in *MsgCreateMessage, opt
 	return out, nil
 }
 
+func (c *msgClient) RegisterWalletKey(ctx context.Context, in *MsgRegisterWalletKey, opts ...grpc.CallOption) (*MsgRegisterWalletKeyResponse, error) {
+	out := new(MsgRegisterWalletKeyResponse)
+	err := c.cc.Invoke(ctx, "/cosmosmessenger.cosmosmessenger.Msg/RegisterWalletKey", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
 	CreateMessage(context.Context, *MsgCreateMessage) (*MsgCreateMessageResponse, error)
+	RegisterWalletKey(context.Context, *MsgRegisterWalletKey) (*MsgRegisterWalletKeyResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
@@ -203,6 +316,9 @@ type UnimplementedMsgServer struct {
 
 func (*UnimplementedMsgServer) CreateMessage(ctx context.Context, req *MsgCreateMessage) (*MsgCreateMessageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateMessage not implemented")
+}
+func (*UnimplementedMsgServer) RegisterWalletKey(ctx context.Context, req *MsgRegisterWalletKey) (*MsgRegisterWalletKeyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RegisterWalletKey not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
@@ -227,6 +343,24 @@ func _Msg_CreateMessage_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_RegisterWalletKey_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgRegisterWalletKey)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).RegisterWalletKey(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/cosmosmessenger.cosmosmessenger.Msg/RegisterWalletKey",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).RegisterWalletKey(ctx, req.(*MsgRegisterWalletKey))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Msg_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "cosmosmessenger.cosmosmessenger.Msg",
 	HandlerType: (*MsgServer)(nil),
@@ -234,6 +368,10 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateMessage",
 			Handler:    _Msg_CreateMessage_Handler,
+		},
+		{
+			MethodName: "RegisterWalletKey",
+			Handler:    _Msg_RegisterWalletKey_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -314,6 +452,76 @@ func (m *MsgCreateMessageResponse) MarshalToSizedBuffer(dAtA []byte) (int, error
 	return len(dAtA) - i, nil
 }
 
+func (m *MsgRegisterWalletKey) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgRegisterWalletKey) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgRegisterWalletKey) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Pubkey) > 0 {
+		i -= len(m.Pubkey)
+		copy(dAtA[i:], m.Pubkey)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Pubkey)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgRegisterWalletKeyResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgRegisterWalletKeyResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgRegisterWalletKeyResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Success {
+		i--
+		if m.Success {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
 	offset -= sovTx(v)
 	base := offset
@@ -355,6 +563,35 @@ func (m *MsgCreateMessageResponse) Size() (n int) {
 	l = len(m.Id)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgRegisterWalletKey) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Pubkey)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgRegisterWalletKeyResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Success {
+		n += 2
 	}
 	return n
 }
@@ -572,6 +809,190 @@ func (m *MsgCreateMessageResponse) Unmarshal(dAtA []byte) error {
 			}
 			m.Id = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgRegisterWalletKey) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgRegisterWalletKey: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgRegisterWalletKey: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pubkey", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Pubkey = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgRegisterWalletKeyResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgRegisterWalletKeyResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgRegisterWalletKeyResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Success", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.Success = bool(v != 0)
 		default:
 			iNdEx = preIndex
 			skippy, err := skipTx(dAtA[iNdEx:])

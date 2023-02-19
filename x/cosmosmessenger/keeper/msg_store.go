@@ -2,17 +2,24 @@ package keeper
 
 import (
 	"cosmos-messenger/x/cosmosmessenger/types"
-	"fmt"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
 )
 
-func (k Keeper) storeMessage(ctx sdk.Context, msg types.Message) {
+func (k Keeper) storeSenderMessage(ctx sdk.Context, msg types.Message) {
+	k.storeMessage(msg, k.getSenderStore(ctx, msg.GetSenderAddress()))
+	return
+}
+
+func (k Keeper) storeReceiverMessage(ctx sdk.Context, msg types.Message) {
+	k.storeMessage(msg, k.getReceiverStore(ctx, msg.ReceiverAddress))
+	return
+}
+
+func (k Keeper) storeMessage(msg types.Message, store prefix.Store) {
 	storedMsg := k.cdc.MustMarshal(&msg)
-	fmt.Println(msg)
-	k.getSenderStore(ctx, msg.SenderAddress).Set([]byte(msg.GetId()), storedMsg)
-	k.getReceiverStore(ctx, msg.ReceiverAddress).Set([]byte(msg.GetId()), storedMsg)
+	store.Set([]byte(msg.GetId()), storedMsg)
 	return
 }
 

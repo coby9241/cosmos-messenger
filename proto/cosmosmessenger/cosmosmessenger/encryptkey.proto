@@ -1,0 +1,8 @@
+syntax = "proto3";
+package cosmosmessenger.cosmosmessenger;
+
+option go_package = "cosmos-messenger/x/cosmosmessenger/types";
+
+message EncryptKey {
+  string PubKey = 1;
+}
