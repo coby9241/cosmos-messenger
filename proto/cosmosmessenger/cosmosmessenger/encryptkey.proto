@@ -5,5 +5,4 @@ option go_package = "cosmos-messenger/x/cosmosmessenger/types";
 
 message EncryptKey {
   string PubKey = 1;
-  string PrivateKey = 2;
 }

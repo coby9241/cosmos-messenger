@@ -1,6 +1,7 @@
 package keeper_test
 
 import (
+	"cosmos-messenger/testutil/encryption"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	"testing"
 
@@ -13,10 +14,12 @@ func TestKeeper_ShowReceivedMessages(t *testing.T) {
 	senderAddr := sample.AccAddress()
 	receiverAddr := sample.AccAddress()
 
-	t.Run("should show received message after sending a message", func(t *testing.T) {
+	t.Run("should show received message after sending a message with encryption", func(t *testing.T) {
 		t.Parallel()
 		// arrange
 		msgSvr, k, ctx := setupMsgServer(t)
+		_, _ = registerWalletForUser(ctx, t, msgSvr, senderAddr)
+		pk, _ := registerWalletForUser(ctx, t, msgSvr, receiverAddr)
 		// act
 		createRes, err := msgSvr.CreateMessage(ctx, &types.MsgCreateMessage{
 			Creator:               senderAddr,
@@ -33,7 +36,9 @@ func TestKeeper_ShowReceivedMessages(t *testing.T) {
 		require.Equal(t, 1, len(res.Messages))
 		require.Equal(t, senderAddr, res.Messages[0].SenderAddress)
 		require.Equal(t, receiverAddr, res.Messages[0].ReceiverAddress)
-		require.Equal(t, "this is a test message", res.Messages[0].Body)
+		val, err := encryption.DecryptMessageGivenKey(res.Messages[0].Body, pk)
+		require.NoError(t, err)
+		require.Equal(t, "this is a test message", string(val))
 		require.Equal(t, createRes.GetId(), res.Messages[0].GetId())
 	})
 
@@ -41,6 +46,8 @@ func TestKeeper_ShowReceivedMessages(t *testing.T) {
 		t.Parallel()
 		// arrange
 		msgSvr, k, ctx := setupMsgServer(t)
+		_, _ = registerWalletForUser(ctx, t, msgSvr, senderAddr)
+		_, _ = registerWalletForUser(ctx, t, msgSvr, receiverAddr)
 		// act
 		_, err := msgSvr.CreateMessage(ctx, &types.MsgCreateMessage{
 			Creator:               receiverAddr,
@@ -61,6 +68,8 @@ func TestKeeper_ShowReceivedMessages(t *testing.T) {
 		// arrange
 		var err error
 		msgSvr, k, ctx := setupMsgServer(t)
+		_, _ = registerWalletForUser(ctx, t, msgSvr, senderAddr)
+		_, _ = registerWalletForUser(ctx, t, msgSvr, receiverAddr)
 		messages := []string{
 			"message 1",
 			"message 2",
@@ -88,6 +97,8 @@ func TestKeeper_ShowReceivedMessages(t *testing.T) {
 		// arrange
 		var err error
 		msgSvr, k, ctx := setupMsgServer(t)
+		_, _ = registerWalletForUser(ctx, t, msgSvr, senderAddr)
+		_, _ = registerWalletForUser(ctx, t, msgSvr, receiverAddr)
 		messages := []string{
 			"message 1",
 			"message 2",
@@ -129,6 +140,8 @@ func TestKeeper_ShowSentMessages(t *testing.T) {
 		t.Parallel()
 		// arrange
 		msgSvr, k, ctx := setupMsgServer(t)
+		pk, _ := registerWalletForUser(ctx, t, msgSvr, senderAddr)
+		_, _ = registerWalletForUser(ctx, t, msgSvr, receiverAddr)
 		// act
 		createRes, err := msgSvr.CreateMessage(ctx, &types.MsgCreateMessage{
 			Creator:               senderAddr,
@@ -145,7 +158,9 @@ func TestKeeper_ShowSentMessages(t *testing.T) {
 		require.Equal(t, 1, len(res.Messages))
 		require.Equal(t, senderAddr, res.Messages[0].SenderAddress)
 		require.Equal(t, receiverAddr, res.Messages[0].ReceiverAddress)
-		require.Equal(t, "this is a test message", res.Messages[0].Body)
+		val, err := encryption.DecryptMessageGivenKey(res.Messages[0].Body, pk)
+		require.NoError(t, err)
+		require.Equal(t, "this is a test message", string(val))
 		require.Equal(t, createRes.GetId(), res.Messages[0].GetId())
 	})
 
@@ -153,6 +168,8 @@ func TestKeeper_ShowSentMessages(t *testing.T) {
 		t.Parallel()
 		// arrange
 		msgSvr, k, ctx := setupMsgServer(t)
+		_, _ = registerWalletForUser(ctx, t, msgSvr, senderAddr)
+		_, _ = registerWalletForUser(ctx, t, msgSvr, receiverAddr)
 		// act
 		_, err := msgSvr.CreateMessage(ctx, &types.MsgCreateMessage{
 			Creator:               receiverAddr,
@@ -173,6 +190,8 @@ func TestKeeper_ShowSentMessages(t *testing.T) {
 		// arrange
 		var err error
 		msgSvr, k, ctx := setupMsgServer(t)
+		_, _ = registerWalletForUser(ctx, t, msgSvr, senderAddr)
+		_, _ = registerWalletForUser(ctx, t, msgSvr, receiverAddr)
 		messages := []string{
 			"message 1",
 			"message 2",
@@ -200,6 +219,8 @@ func TestKeeper_ShowSentMessages(t *testing.T) {
 		// arrange
 		var err error
 		msgSvr, k, ctx := setupMsgServer(t)
+		_, _ = registerWalletForUser(ctx, t, msgSvr, senderAddr)
+		_, _ = registerWalletForUser(ctx, t, msgSvr, receiverAddr)
 		messages := []string{
 			"message 1",
 			"message 2",
@@ -238,6 +259,7 @@ func TestKeeper_ShowMixedMessages(t *testing.T) {
 
 	t.Run("should show a message in both ShowSentMessages and ShowReceivedMessages if sender == receiver", func(t *testing.T) {
 		msgSvr, k, ctx := setupMsgServer(t)
+		pk, _ := registerWalletForUser(ctx, t, msgSvr, walletAddr)
 		res, err := msgSvr.CreateMessage(ctx, &types.MsgCreateMessage{
 			Creator:               walletAddr,
 			ReceiverWalletAddress: walletAddr,
@@ -253,7 +275,9 @@ func TestKeeper_ShowMixedMessages(t *testing.T) {
 		require.Equal(t, 1, len(querySender.Messages))
 		require.Equal(t, walletAddr, querySender.Messages[0].SenderAddress)
 		require.Equal(t, walletAddr, querySender.Messages[0].ReceiverAddress)
-		require.Equal(t, "test sending to myself", querySender.Messages[0].Body)
+		sentVal, err := encryption.DecryptMessageGivenKey(querySender.Messages[0].Body, pk)
+		require.NoError(t, err)
+		require.Equal(t, "test sending to myself", string(sentVal))
 		require.Equal(t, res.GetId(), querySender.Messages[0].GetId())
 
 		// check received msgs for wallet
@@ -264,7 +288,9 @@ func TestKeeper_ShowMixedMessages(t *testing.T) {
 		require.Equal(t, 1, len(queryReceiver.Messages))
 		require.Equal(t, walletAddr, queryReceiver.Messages[0].SenderAddress)
 		require.Equal(t, walletAddr, queryReceiver.Messages[0].ReceiverAddress)
-		require.Equal(t, "test sending to myself", queryReceiver.Messages[0].Body)
+		receivedVal, err := encryption.DecryptMessageGivenKey(queryReceiver.Messages[0].Body, pk)
+		require.NoError(t, err)
+		require.Equal(t, "test sending to myself", string(receivedVal))
 		require.Equal(t, res.GetId(), queryReceiver.Messages[0].GetId())
 	})
 }

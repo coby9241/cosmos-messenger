@@ -22,23 +22,22 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-type Encryptkey struct {
-	Pubkey     string `protobuf:"bytes,1,opt,name=pubkey,proto3" json:"pubkey,omitempty"`
-	Privatekey string `protobuf:"bytes,2,opt,name=privatekey,proto3" json:"privatekey,omitempty"`
+type EncryptKey struct {
+	PubKey string `protobuf:"bytes,1,opt,name=PubKey,proto3" json:"PubKey,omitempty"`
 }
 
-func (m *Encryptkey) Reset()         { *m = Encryptkey{} }
-func (m *Encryptkey) String() string { return proto.CompactTextString(m) }
-func (*Encryptkey) ProtoMessage()    {}
-func (*Encryptkey) Descriptor() ([]byte, []int) {
+func (m *EncryptKey) Reset()         { *m = EncryptKey{} }
+func (m *EncryptKey) String() string { return proto.CompactTextString(m) }
+func (*EncryptKey) ProtoMessage()    {}
+func (*EncryptKey) Descriptor() ([]byte, []int) {
 	return fileDescriptor_bc8573d1a71d401b, []int{0}
 }
-func (m *Encryptkey) XXX_Unmarshal(b []byte) error {
+func (m *EncryptKey) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *Encryptkey) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *EncryptKey) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_Encryptkey.Marshal(b, m, deterministic)
+		return xxx_messageInfo_EncryptKey.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -48,34 +47,27 @@ func (m *Encryptkey) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 		return b[:n], nil
 	}
 }
-func (m *Encryptkey) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Encryptkey.Merge(m, src)
+func (m *EncryptKey) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_EncryptKey.Merge(m, src)
 }
-func (m *Encryptkey) XXX_Size() int {
+func (m *EncryptKey) XXX_Size() int {
 	return m.Size()
 }
-func (m *Encryptkey) XXX_DiscardUnknown() {
-	xxx_messageInfo_Encryptkey.DiscardUnknown(m)
+func (m *EncryptKey) XXX_DiscardUnknown() {
+	xxx_messageInfo_EncryptKey.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_Encryptkey proto.InternalMessageInfo
+var xxx_messageInfo_EncryptKey proto.InternalMessageInfo
 
-func (m *Encryptkey) GetPubkey() string {
+func (m *EncryptKey) GetPubKey() string {
 	if m != nil {
-		return m.Pubkey
-	}
-	return ""
-}
-
-func (m *Encryptkey) GetPrivatekey() string {
-	if m != nil {
-		return m.Privatekey
+		return m.PubKey
 	}
 	return ""
 }
 
 func init() {
-	proto.RegisterType((*Encryptkey)(nil), "cosmosmessenger.cosmosmessenger.Encryptkey")
+	proto.RegisterType((*EncryptKey)(nil), "cosmosmessenger.cosmosmessenger.EncryptKey")
 }
 
 func init() {
@@ -83,20 +75,19 @@ func init() {
 }
 
 var fileDescriptor_bc8573d1a71d401b = []byte{
-	// 159 bytes of a gzipped FileDescriptorProto
+	// 144 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x32, 0x48, 0xce, 0x2f, 0xce,
 	0xcd, 0x2f, 0xce, 0x4d, 0x2d, 0x2e, 0x4e, 0xcd, 0x4b, 0x4f, 0x2d, 0xd2, 0x47, 0xe7, 0xa7, 0xe6,
 	0x25, 0x17, 0x55, 0x16, 0x94, 0x64, 0xa7, 0x56, 0xea, 0x15, 0x14, 0xe5, 0x97, 0xe4, 0x0b, 0xc9,
-	0xa3, 0xa9, 0xd0, 0x43, 0xe3, 0x2b, 0xb9, 0x70, 0x71, 0xb9, 0xc2, 0x35, 0x09, 0x89, 0x71, 0xb1,
-	0x15, 0x94, 0x26, 0x65, 0xa7, 0x56, 0x4a, 0x30, 0x2a, 0x30, 0x6a, 0x70, 0x06, 0x41, 0x79, 0x42,
-	0x72, 0x5c, 0x5c, 0x05, 0x45, 0x99, 0x65, 0x89, 0x25, 0xa9, 0x20, 0x39, 0x26, 0xb0, 0x1c, 0x92,
-	0x88, 0x93, 0xd3, 0x89, 0x47, 0x72, 0x8c, 0x17, 0x1e, 0xc9, 0x31, 0x3e, 0x78, 0x24, 0xc7, 0x38,
-	0xe1, 0xb1, 0x1c, 0xc3, 0x85, 0xc7, 0x72, 0x0c, 0x37, 0x1e, 0xcb, 0x31, 0x44, 0x69, 0x40, 0x2c,
-	0xd4, 0x45, 0xb8, 0xb1, 0x02, 0xc3, 0xd5, 0x25, 0x95, 0x05, 0xa9, 0xc5, 0x49, 0x6c, 0x60, 0x17,
-	0x1b, 0x03, 0x02, 0x00, 0x00, 0xff, 0xff, 0x36, 0x77, 0x9e, 0xcd, 0xe5, 0x00, 0x00, 0x00,
+	0xa3, 0xa9, 0xd0, 0x43, 0xe3, 0x2b, 0xa9, 0x70, 0x71, 0xb9, 0x42, 0x34, 0x79, 0xa7, 0x56, 0x0a,
+	0x89, 0x71, 0xb1, 0x05, 0x94, 0x26, 0x79, 0xa7, 0x56, 0x4a, 0x30, 0x2a, 0x30, 0x6a, 0x70, 0x06,
+	0x41, 0x79, 0x4e, 0x4e, 0x27, 0x1e, 0xc9, 0x31, 0x5e, 0x78, 0x24, 0xc7, 0xf8, 0xe0, 0x91, 0x1c,
+	0xe3, 0x84, 0xc7, 0x72, 0x0c, 0x17, 0x1e, 0xcb, 0x31, 0xdc, 0x78, 0x2c, 0xc7, 0x10, 0xa5, 0x01,
+	0x31, 0x50, 0x17, 0xe1, 0x86, 0x0a, 0x0c, 0x57, 0x95, 0x54, 0x16, 0xa4, 0x16, 0x27, 0xb1, 0x81,
+	0x5d, 0x64, 0x0c, 0x08, 0x00, 0x00, 0xff, 0xff, 0xbf, 0x25, 0x64, 0x41, 0xc5, 0x00, 0x00, 0x00,
 }
 
-func (m *Encryptkey) Marshal() (dAtA []byte, err error) {
+func (m *EncryptKey) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -106,27 +97,20 @@ func (m *Encryptkey) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *Encryptkey) MarshalTo(dAtA []byte) (int, error) {
+func (m *EncryptKey) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *Encryptkey) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *EncryptKey) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
-	if len(m.Privatekey) > 0 {
-		i -= len(m.Privatekey)
-		copy(dAtA[i:], m.Privatekey)
-		i = encodeVarintEncryptkey(dAtA, i, uint64(len(m.Privatekey)))
-		i--
-		dAtA[i] = 0x12
-	}
-	if len(m.Pubkey) > 0 {
-		i -= len(m.Pubkey)
-		copy(dAtA[i:], m.Pubkey)
-		i = encodeVarintEncryptkey(dAtA, i, uint64(len(m.Pubkey)))
+	if len(m.PubKey) > 0 {
+		i -= len(m.PubKey)
+		copy(dAtA[i:], m.PubKey)
+		i = encodeVarintEncryptkey(dAtA, i, uint64(len(m.PubKey)))
 		i--
 		dAtA[i] = 0xa
 	}
@@ -144,17 +128,13 @@ func encodeVarintEncryptkey(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
-func (m *Encryptkey) Size() (n int) {
+func (m *EncryptKey) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	l = len(m.Pubkey)
-	if l > 0 {
-		n += 1 + l + sovEncryptkey(uint64(l))
-	}
-	l = len(m.Privatekey)
+	l = len(m.PubKey)
 	if l > 0 {
 		n += 1 + l + sovEncryptkey(uint64(l))
 	}
@@ -167,7 +147,7 @@ func sovEncryptkey(x uint64) (n int) {
 func sozEncryptkey(x uint64) (n int) {
 	return sovEncryptkey(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
-func (m *Encryptkey) Unmarshal(dAtA []byte) error {
+func (m *EncryptKey) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -190,15 +170,15 @@ func (m *Encryptkey) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: Encryptkey: wiretype end group for non-group")
+			return fmt.Errorf("proto: EncryptKey: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: Encryptkey: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: EncryptKey: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Pubkey", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field PubKey", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -226,39 +206,7 @@ func (m *Encryptkey) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Pubkey = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 2:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Privatekey", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowEncryptkey
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthEncryptkey
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthEncryptkey
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Privatekey = string(dAtA[iNdEx:postIndex])
+			m.PubKey = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex

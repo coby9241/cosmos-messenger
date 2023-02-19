@@ -6,15 +6,25 @@ option go_package = "cosmos-messenger/x/cosmosmessenger/types";
 
 // Msg defines the Msg service.
 service Msg {
-  rpc CreateMessage (MsgCreateMessage) returns (MsgCreateMessageResponse);
+  rpc CreateMessage     (MsgCreateMessage    ) returns (MsgCreateMessageResponse    );
+  rpc RegisterWalletKey (MsgRegisterWalletKey) returns (MsgRegisterWalletKeyResponse);
 }
 message MsgCreateMessage {
-  string creator = 1;
+  string creator               = 1;
   string receiverWalletAddress = 2;
-  string body = 3;
+  string body                  = 3;
 }
 
 message MsgCreateMessageResponse {
   string id = 1;
+}
+
+message MsgRegisterWalletKey {
+  string creator = 1;
+  string pubkey  = 2;
+}
+
+message MsgRegisterWalletKeyResponse {
+  bool success = 1;
 }
 

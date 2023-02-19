@@ -28,6 +28,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgCreateMessage int = 100
 
+	opWeightMsgRegisterWalletKey = "op_weight_msg_register_wallet_key"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgRegisterWalletKey int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -71,6 +75,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgCreateMessage,
 		cosmosmessengersimulation.SimulateMsgCreateMessage(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgRegisterWalletKey int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgRegisterWalletKey, &weightMsgRegisterWalletKey, nil,
+		func(_ *rand.Rand) {
+			weightMsgRegisterWalletKey = defaultWeightMsgRegisterWalletKey
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgRegisterWalletKey,
+		cosmosmessengersimulation.SimulateMsgRegisterWalletKey(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

@@ -70614,6 +70614,11 @@ definitions:
     properties:
       id:
         type: string
+  cosmosmessenger.cosmosmessenger.MsgRegisterWalletKeyResponse:
+    type: object
+    properties:
+      success:
+        type: boolean
   cosmosmessenger.cosmosmessenger.Params:
     type: object
     description: Params defines the parameters for the module.

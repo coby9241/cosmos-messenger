@@ -9,12 +9,16 @@ import (
 
 func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgCreateMessage{}, "cosmosmessenger/CreateMessage", nil)
+	cdc.RegisterConcrete(&MsgRegisterWalletKey{}, "cosmosmessenger/RegisterWalletKey", nil)
 	// this line is used by starport scaffolding # 2
 }
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCreateMessage{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgRegisterWalletKey{},
 	)
 	// this line is used by starport scaffolding # 3
 
