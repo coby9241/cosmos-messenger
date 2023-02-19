@@ -31,12 +31,12 @@ func (k msgServer) CreateMessage(goCtx context.Context, msg *types.MsgCreateMess
 		ReceiverAddress: msg.ReceiverWalletAddress,
 	}
 
-	encryptedSenderMsg, err := EncryptSenderMessage(chatMsg, senderKey.PubKey)
+	encryptedSenderMsg, err := EncryptMessage(chatMsg, senderKey.PubKey)
 	if err != nil {
 		ctx.Logger().Error(fmt.Errorf("failed to encrypt message for wallet address: %s with error: %w", msg.GetCreator(), err).Error())
 		return nil, status.Error(codes.Internal, "failed to encrypt message")
 	}
-	encryptedReceiverMsg, err := EncryptSenderMessage(chatMsg, receiverKey.PubKey)
+	encryptedReceiverMsg, err := EncryptMessage(chatMsg, receiverKey.PubKey)
 	if err != nil {
 		ctx.Logger().Error(fmt.Errorf("failed to encrypt message for wallet address: %s with error: %w", msg.GetCreator(), err).Error())
 		return nil, status.Error(codes.Internal, "failed to encrypt message")

@@ -1,3 +1,5 @@
+![Build](https://github.com/coby9241/cosmos-messenger/actions/workflows/test.yml/badge.svg)
+
 # cosmosmessenger
 **cosmosmessenger** is a blockchain built using Cosmos SDK and Tendermint and created with [Ignite CLI](https://ignite.com/cli).
 
