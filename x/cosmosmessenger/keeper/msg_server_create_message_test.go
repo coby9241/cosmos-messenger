@@ -102,4 +102,33 @@ func TestMsgServer_CreateMessage(t *testing.T) {
 			require.True(t, IsValidKsuid(resp.GetId()))
 		}
 	})
+
+	t.Run("should fail to create message if sender is not registered", func(t *testing.T) {
+		t.Parallel()
+		// arrange
+		msgSvr, _, ctx := setupMsgServer(t)
+		// act
+		_, err := msgSvr.CreateMessage(ctx, &types.MsgCreateMessage{
+			Creator:               senderAddr,
+			ReceiverWalletAddress: receiverAddr,
+			Body:                  "this is a test message",
+		})
+		// assert
+		require.Error(t, err)
+	})
+
+	t.Run("should fail to create message if receiver is not registered", func(t *testing.T) {
+		t.Parallel()
+		// arrange
+		msgSvr, _, ctx := setupMsgServer(t)
+		_, _ = registerWalletForUser(ctx, t, msgSvr, senderAddr)
+		// act
+		_, err := msgSvr.CreateMessage(ctx, &types.MsgCreateMessage{
+			Creator:               senderAddr,
+			ReceiverWalletAddress: receiverAddr,
+			Body:                  "this is a test message",
+		})
+		// assert
+		require.Error(t, err)
+	})
 }

@@ -13,7 +13,7 @@ import (
 	"cosmos-messenger/x/cosmosmessenger/types"
 )
 
-func EncryptSenderMessage(msg types.Message, pubKey string) (types.Message, error) {
+func EncryptMessage(msg types.Message, pubKey string) (types.Message, error) {
 	pub, err := stringToPublicKey(pubKey)
 	if err != nil {
 		return msg, err
