@@ -23,7 +23,7 @@ func TestEncryptSenderMessage(t *testing.T) {
 	privateKey, pubKeyStr := getEncryptionKeys(t)
 	t.Run("should encrypt message and base64 encode successfully, and can be decrypted by private key", func(t *testing.T) {
 		t.Parallel()
-		res, err := EncryptSenderMessage(types.Message{
+		res, err := EncryptMessage(types.Message{
 			Body: "example",
 		}, pubKeyStr)
 		require.NoError(t, err)
@@ -34,7 +34,7 @@ func TestEncryptSenderMessage(t *testing.T) {
 
 	t.Run("should fail to encrypt if public key is invalid", func(t *testing.T) {
 		t.Parallel()
-		_, err := EncryptSenderMessage(types.Message{
+		_, err := EncryptMessage(types.Message{
 			Body: "example",
 		}, "wrong key")
 		require.Error(t, err)
@@ -46,7 +46,7 @@ func TestEncryptSenderMessage(t *testing.T) {
 		newPrivateKey, _, err := encryption.SetupTestKeys(2048)
 		require.NoError(t, err)
 
-		res, err := EncryptSenderMessage(types.Message{
+		res, err := EncryptMessage(types.Message{
 			Body: "example",
 		}, pubKeyStr)
 		require.NoError(t, err)
