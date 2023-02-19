@@ -75,7 +75,7 @@ I chose to do it at the server side instead, otherwise without a proper frontend
 
 ## Code Structure
 
-Most code implementation are found in `x/cosmosmessenger/keeper`. Some other code are boilerplate from scaffolding, and some
+Most code implementation are found in `x/cosmosmessenger/keeper` as well as unit tests. Some other code are boilerplate from scaffolding, and some
 testing utility code can be found in `testutil`. 
 - `x/cosmosmessenger/keeper/encryption.go`: handles encryption logic
 - `x/cosmosmessenger/keeper/encryption_store.go`: handles saving and reading of encryption keys in the KV store
