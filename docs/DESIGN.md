@@ -76,4 +76,11 @@ I chose to do it at the server side instead, otherwise without a proper frontend
 ## Code Structure
 
 Most code implementation are found in `x/cosmosmessenger/keeper`. Some other code are boilerplate from scaffolding, and some
-testing utility code can be found in `testutil`.
+testing utility code can be found in `testutil`. 
+- `x/cosmosmessenger/keeper/encryption.go`: handles encryption logic
+- `x/cosmosmessenger/keeper/encryption_store.go`: handles saving and reading of encryption keys in the KV store
+- `x/cosmosmessenger/keeper/msg_server_create_message.go`: handle creating of message into the chain
+- `x/cosmosmessenger/keeper/msg_server_register_wallet_key.go`: handle saving of public key into the chain and handle errors
+- `x/cosmosmessenger/keeper/msg_store.go`: handles saving and reading of messages in the KV store
+- `x/cosmosmessenger/keeper/query_show_received_messages.go`: handles showing of messages received for wallet
+- `x/cosmosmessenger/keeper/query_show_sent_messages.go`: handles showing of messages sent for wallet
